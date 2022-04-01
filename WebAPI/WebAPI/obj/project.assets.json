@@ -670,11 +670,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\ReactJsCoreApi\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\ReactJsCoreApi\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "projectPath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
       "packagesPath": "C:\\Users\\mante\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\ReactJsCoreApi\\WebAPI\\WebAPI\\obj\\",
+      "outputPath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mante\\AppData\\Roaming\\NuGet\\NuGet.Config",

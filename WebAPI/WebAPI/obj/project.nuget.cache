@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TiUMsIhBkOSlylvV1SQXaZF3h/YyF6JesQAThuWEZ5/AYG1/GTCXQ+QVI97/j4pHLQg9R9I30iWxNSqBXdQC/Q==",
+  "dgSpecHash": "Fs0BUZV10BgaLbndNNJu8eRz4ifAfEoVG3mnNIbfyY45YdJREgLdRhh3fOfknwTHyxd3r8vLiz6VXzKF4X/wRw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\ReactJsCoreApi\\WebAPI\\WebAPI\\WebAPI.csproj",
+  "projectFilePath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mante\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.9\\microsoft.aspnetcore.jsonpatch.3.1.9.nupkg.sha512",
     "C:\\Users\\mante\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.9\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.9.nupkg.sha512",
