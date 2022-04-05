@@ -88,7 +88,6 @@ C:\Users\mante\OneDrive\Stalinis kompiuteris\GIT\fun\WebAPI\WebAPI\obj\Debug\net
 C:\Users\mante\OneDrive\Stalinis kompiuteris\GIT\fun\WebAPI\WebAPI\obj\Debug\netcoreapp3.1\staticwebassets\WebAPI.StaticWebAssets.xml
 C:\Users\mante\OneDrive\Stalinis kompiuteris\GIT\fun\WebAPI\WebAPI\obj\Debug\netcoreapp3.1\scopedcss\bundle\WebAPI.styles.css
 C:\Users\mante\OneDrive\Stalinis kompiuteris\GIT\fun\WebAPI\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.RazorTargetAssemblyInfo.cache
-C:\Users\mante\OneDrive\Stalinis kompiuteris\GIT\fun\WebAPI\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.csproj.CopyComplete
 C:\Users\mante\OneDrive\Stalinis kompiuteris\GIT\fun\WebAPI\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.dll
 C:\Users\mante\OneDrive\Stalinis kompiuteris\GIT\fun\WebAPI\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.pdb
 C:\Users\mante\OneDrive\Stalinis kompiuteris\GIT\fun\WebAPI\WebAPI\obj\Debug\netcoreapp3.1\WebAPI.genruntimeconfig.cache

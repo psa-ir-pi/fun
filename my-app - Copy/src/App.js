@@ -2,8 +2,6 @@ import logo from './logo.svg';
 import './App.css';
 
 import {Home} from './Home';
-import {Department} from './Department';
-import {Employee} from './Employee';
 import {AllProjects} from './AllProjects';
 import {Navigation} from './Navigation';
 
@@ -21,8 +19,6 @@ function App() {
 
      <Switch>
        <Route path='/' component={Home} exact/>
-       <Route path='/department' component={Department}/>
-       <Route path='/employee' component={Employee}/>
        <Route path='/allProjects' component={AllProjects}/>
      </Switch>
     </div>

@@ -4,6 +4,7 @@ import {Table} from 'react-bootstrap';
 import {Button,ButtonToolbar} from 'react-bootstrap';
 import {CreateProject} from './CreateProject';
 import {EditProject} from './EditProject';
+import { format } from 'date-fns'
 
 export class AllProjects extends Component{
 
@@ -12,7 +13,7 @@ export class AllProjects extends Component{
         this.state={projects:[], createShow:false, editShow:false}
     }
 
-    refreshList(){
+    getProjects(){
         fetch(process.env.REACT_APP_API+'project')
         .then(response=>response.json())
         .then(data=>{
@@ -21,11 +22,11 @@ export class AllProjects extends Component{
     }
 
     componentDidMount(){
-        this.refreshList();
+        this.getProjects();
     }
 
     componentDidUpdate(){
-        this.refreshList();
+        this.getProjects();
     }
 
     deleteProject(projectId){
@@ -38,26 +39,27 @@ export class AllProjects extends Component{
         }
     }
     render(){
-        console.log("Hello world!");
         const {projects, projectId,projectName, projectDate, projectDescription}=this.state;//delete projectDescription mayby
+        console.log(projects)
         let createClose=()=>this.setState({createShow:false});
         let editClose=()=>this.setState({editShow:false});
         return(
-            <div >
+            <div class="col-lg-12  text-center">
+                <h1>All projects</h1>
                 <Table className="mt-4" striped bordered hover size="sm">
                     <thead>
                         <tr>
-                            <th>ProjectId</th>
-                            <th>ProjectName</th>
+                            <th>Project name</th>
+                            <th>Project creation date</th>
                             <th>Options</th>
                         </tr>
                     </thead>
                     <tbody>
                         {projects.map(proj=>
                             <tr key={proj.id}>
-                                <td>{proj.id}</td>
                                 <td>{proj.name}</td>
-                                <td>
+                                <td>{proj.date.slice(0, 10)}</td>
+                                <td >
                                         <ButtonToolbar>
                                             <Button className="mr-2" variant="info"
                                             onClick={()=>this.setState({editShow:true,
