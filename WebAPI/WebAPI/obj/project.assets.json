@@ -665,19 +665,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mante\\.nuget\\packages\\": {}
+    "C:\\Users\\mantu\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "F:\\UNI\\6_Semestras\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
-      "packagesPath": "C:\\Users\\mante\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\obj\\",
+      "projectPath": "F:\\UNI\\6_Semestras\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "packagesPath": "C:\\Users\\mantu\\.nuget\\packages\\",
+      "outputPath": "F:\\UNI\\6_Semestras\\fun\\WebAPI\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mante\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mantu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -730,7 +730,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

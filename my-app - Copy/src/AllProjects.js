@@ -11,6 +11,7 @@ export class AllProjects extends Component{
     constructor(props){
         super(props);
         this.state={projects:[], createShow:false, editShow:false}
+        this.state2 = {tasks:[]};
     }
 
     getProjects(){
@@ -29,15 +30,43 @@ export class AllProjects extends Component{
         this.getProjects();
     }
 
+    // gets all tasks assigned to project and test whether they are Uzdaryti
+    testIfAllTasksFinished(projectid){
+        fetch(process.env.REACT_APP_API+'task/ProjectTasks'+projectid)
+        .then(response=>response.json())
+        .then(data=>{
+            this.setState({tasks:data});
+        });
+        var flag = false;
+        const {tasks} = this.state2
+        tasks.map((task)=>{
+            if (task.busena=='Uzdaryta')flag=true;
+        });
+        return flag;
+    }
+
+    // first calls a func testIfAllTasksFinished and then ask for confirmation to delete project by id
     deleteProject(projectId){
-        if(window.confirm('Are you sure?')){
-            fetch(process.env.REACT_APP_API+'project/'+projectId,{
-                method:'DELETE',
-                header:{'Accept':'application/json',
-            'Content-Type':'application/json'}
-            })
+        const flag = this.testIfAllTasksFinished(projectId);
+        if(flag){
+            if(window.confirm('There are unfinished tasks. \nAre you sure you want to delete the project?')){
+                fetch(process.env.REACT_APP_API+'project/'+projectId,{
+                    method:'DELETE',
+                    header:{'Accept':'application/json',
+                'Content-Type':'application/json'}
+                });
+            }
+        }else{
+            if(window.confirm('Are you sure?')){
+                fetch(process.env.REACT_APP_API+'project/'+projectId,{
+                    method:'DELETE',
+                    header:{'Accept':'application/json',
+                    'Content-Type':'application/json'}
+                });
+            }
         }
     }
+
     render(){
         const {projects, projectId,projectName, projectDate, projectDescription}=this.state;//delete projectDescription mayby
         console.log(projects)
