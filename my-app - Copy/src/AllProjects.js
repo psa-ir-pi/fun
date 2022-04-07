@@ -63,7 +63,7 @@ export class AllProjects extends Component{
                                         <ButtonToolbar>
                                             <Button className="mr-2" variant="info"
                                             onClick={()=>this.setState({editShow:true,
-                                                projectId:proj.id,projectName:proj.Name})}>
+                                                projectId:proj.id, projectDate:proj.date, projectName:proj.name, projectDescription:proj.description})}>
                                                     Edit
                                                 </Button>
 
@@ -75,7 +75,10 @@ export class AllProjects extends Component{
                                                 <EditProject show={this.state.editShow}
                                                 onHide={editClose}
                                                 projectId={projectId}
-                                                projectName={projectName}/>
+                                                projectName={projectName}
+                                                projectDescription={projectDescription}
+                                                projectDate={projectDate}
+                                                />
                                         </ButtonToolbar>
 
                                 </td>

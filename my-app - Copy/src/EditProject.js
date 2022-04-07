@@ -9,15 +9,16 @@ export class EditProject extends Component{
 
     handleSubmit(event){
         event.preventDefault();
-        fetch(process.env.REACT_APP_API+'department',{
-            method:'POST',
+        fetch(process.env.REACT_APP_API+'project',{
+            method:'PUT',
             headers:{
                 'Accept':'application/json',
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                DepartmentId:null,
-                DepartmentName:event.target.DepartmentName.value
+                id:event.target.id.value,
+                name:event.target.name.value,
+                description:event.target.description.value
             })
         })
         .then(res=>res.json())
@@ -40,7 +41,7 @@ centered
 >
     <Modal.Header clooseButton>
         <Modal.Title id="contained-modal-title-vcenter">
-            Add Department
+            Edit Project
         </Modal.Title>
     </Modal.Header>
     <Modal.Body>
@@ -48,15 +49,39 @@ centered
         <Row>
             <Col sm={6}>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="DepartmentName">
-                        <Form.Label>DepartmentName</Form.Label>
-                        <Form.Control type="text" name="DepartmentName" required 
-                        placeholder="DepartmentName"/>
+                    <Form.Group controlId="id">
+                        <Form.Label>Project id</Form.Label>
+                        <Form.Control type="text" name="id" required
+                         disabled
+                         defaultValue={this.props.projectId}
+                        placeholder="id"/>
+                    </Form.Group>
+
+                    <Form.Group controlId="date">
+                        <Form.Label>Project Date</Form.Label>
+                        <Form.Control type="text" name="date" required
+                         disabled
+                         defaultValue={this.props.projectDate}
+                        placeholder="date"/>
+                    </Form.Group>
+
+                    <Form.Group controlId="name">
+                        <Form.Label>Project Name</Form.Label>
+                        <Form.Control type="text" name="name" required 
+                        defaultValue={this.props.projectName}
+                        placeholder="name"/>
+                    </Form.Group>
+
+                    <Form.Group controlId="description">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control type="text" name="description" required 
+                        defaultValue={this.props.projectDescription}
+                        placeholder="description"/>
                     </Form.Group>
 
                     <Form.Group>
                         <Button variant="primary" type="submit">
-                            Add Department
+                            Edit Project
                         </Button>
                     </Form.Group>
                 </Form>
