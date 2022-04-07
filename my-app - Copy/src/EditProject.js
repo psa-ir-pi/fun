@@ -4,10 +4,10 @@ import {Modal,Button, Row, Col, Form} from 'react-bootstrap';
 export class EditProject extends Component{
     constructor(props){
         super(props);
-        this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleSubmit=this.submitNewInfo.bind(this);
     }
 
-    handleSubmit(event){
+    submitNewInfo(event){
         event.preventDefault();
         fetch(process.env.REACT_APP_API+'project',{
             method:'PUT',
@@ -48,7 +48,7 @@ centered
 
         <Row>
             <Col sm={6}>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.submitNewInfo}>
                     <Form.Group controlId="id">
                         <Form.Label>Project id</Form.Label>
                         <Form.Control type="text" name="id" required

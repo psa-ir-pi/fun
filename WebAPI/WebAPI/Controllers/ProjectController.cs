@@ -47,7 +47,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost]
-        public JsonResult insert(Project project)
+        public JsonResult Insert(Project project)
         {
             string query0 = @"
                     select * from dbo.Project where name='" + project.name + "'";
@@ -190,6 +190,7 @@ namespace WebAPI.Controllers
 
                 return new JsonResult("Updated Successfully");
             }
+        }
 
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)

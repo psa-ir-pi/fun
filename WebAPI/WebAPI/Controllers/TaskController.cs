@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
         public JsonResult Get(int id)
         {
             string query = @"
-                    select * from dbo.Tasks
+                    select * from dbo.Task
                     where foreign_project =" + id + "@";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
