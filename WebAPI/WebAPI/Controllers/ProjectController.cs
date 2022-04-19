@@ -160,7 +160,7 @@ namespace WebAPI.Controllers
                     myCon.Close();
                 }
             }
-            if (table0.Rows.Count > 0)
+            if (table0.Rows.Count > 0 && project.previousName != project.name)
             {
                 return new JsonResult("Project with this name already exists");
             }

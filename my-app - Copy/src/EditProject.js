@@ -18,7 +18,8 @@ export class EditProject extends Component{
             body:JSON.stringify({
                 id:event.target.id.value,
                 name:event.target.name.value,
-                description:event.target.description.value
+                description:event.target.description.value,
+                previousName:event.target.previousName.value
             })
         })
         .then(res=>res.json())
@@ -70,6 +71,10 @@ centered
                         <Form.Control type="text" name="name" required 
                         defaultValue={this.props.projectName}
                         placeholder="name"/>
+                    </Form.Group>
+
+                    <Form.Group controlId="previousName">
+                        <Form.Control type="hidden" name="previousName" value={this.props.projectName}/>
                     </Form.Group>
 
                     <Form.Group controlId="description">

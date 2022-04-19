@@ -11,5 +11,6 @@ namespace WebAPI.Models
         public string name { get; set; }
         public DateTime date { get; set; }
         public string description { get; set; }
+        public string previousName { get; set; }
     }
 }

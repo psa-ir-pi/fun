@@ -18,6 +18,9 @@ export class AllProjects extends Component{
         fetch(process.env.REACT_APP_API+'project')
         .then(response=>response.json())
         .then(data=>{
+            for (let project of data) {
+                project.date = project.date.slice(0, 10);
+            }
             this.setState({projects:data});
         });
     }
@@ -87,7 +90,7 @@ export class AllProjects extends Component{
                         {projects.map(proj=>
                             <tr key={proj.id}>
                                 <td>{proj.name}</td>
-                                <td>{proj.date.slice(0, 10)}</td>
+                                <td>{proj.date}</td>
                                 <td >
                                         <ButtonToolbar>
                                             <Button className="mr-2" variant="info"
@@ -99,6 +102,14 @@ export class AllProjects extends Component{
                                                 <Button className="mr-2" variant="danger"
                                             onClick={()=>this.deleteProject(proj.id)}>
                                                     Delete
+                                                </Button>
+
+                                                <Button className="mr-2" variant="primary">
+                                                    Members
+                                                </Button>
+
+                                                <Button className="mr-2" variant="secondary">
+                                                    Statistic
                                                 </Button>
 
                                                 <EditProject show={this.state.editShow}
