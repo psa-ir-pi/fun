@@ -86,7 +86,7 @@ export class ProjectMember extends Component{
 
     }
 
-    handleSubmit(event){
+    addUserToTeam(event){
         const projid = this.state.projectid;
         event.preventDefault();
         fetch(process.env.REACT_APP_API+'projectmember',{
@@ -147,7 +147,7 @@ export class ProjectMember extends Component{
 
                 </Table>
 
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.addUserToTeam}>
                     <Row >
                         <Col>
                             <Form.Group  controlId="userid">
