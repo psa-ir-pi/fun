@@ -4,6 +4,7 @@ import './App.css';
 import {Home} from './Home';
 import {AllProjects} from './AllProjects';
 import {ProjectMember} from './ProjectMember';
+import {CodeView} from './CodeView';
 import {Navigation} from './Navigation';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -19,6 +20,7 @@ function App() {
        <Route path='/' component={Home} exact/>
        <Route path='/allProjects' component={AllProjects}/>
        <Route path='/ProjectMember/:id' component={ProjectMember}/>
+       <Route path='/CodeView/:id' component={CodeView}/>
      </Switch>
     </div>
     </BrowserRouter>
