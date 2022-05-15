@@ -3,7 +3,11 @@ import './App.css';
 
 import {Home} from './Home';
 import {AllProjects} from './AllProjects';
+import MyProjects from './MyProjects';
+import {ControlComment} from './ControlComment';
 import {Navigation} from './Navigation';
+
+import React, { useState } from "react";
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
@@ -17,6 +21,8 @@ function App() {
      <Switch>
        <Route path='/' component={Home} exact/>
        <Route path='/allProjects' component={AllProjects}/>
+       <Route path='/myProjects' component={MyProjects}/>
+       <Route path='/comments' component={ControlComment}/>
      </Switch>
     </div>
     </BrowserRouter>

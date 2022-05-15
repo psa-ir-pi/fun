@@ -7,20 +7,19 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public TaskController(IConfiguration configuration)
+        public UserController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-        [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        [HttpGet]
+        public JsonResult Get()
         {
             string query = @"
-                    select * from dbo.Task
-                    where foreign_sprint =" + id;
+                    select * from dbo.Users";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
             SqlDataReader myReader;

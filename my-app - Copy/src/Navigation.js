@@ -14,7 +14,13 @@ export class Navigation extends Component{
                     Home
                 </NavLink>
                 <NavLink className="d-inline p-2 bg-dark text-white" to="/allProjects">
-                    Projects
+                    All projects
+                </NavLink>
+                <NavLink className="d-inline p-2 bg-dark text-white" to="/myProjects">
+                    My projects
+                </NavLink>
+                <NavLink className="d-inline p-2 bg-dark text-white" to="/comments">
+                    Comments
                 </NavLink>
 
                 </Nav>
