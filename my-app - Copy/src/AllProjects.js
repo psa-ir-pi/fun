@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Table} from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
 import {Button,ButtonToolbar} from 'react-bootstrap';
 import {CreateProject} from './CreateProject';
 import {EditProject} from './EditProject';
@@ -72,11 +72,10 @@ export class AllProjects extends Component{
 
     render(){
         const {projects, projectId,projectName, projectDate, projectDescription}=this.state;//delete projectDescription mayby
-        console.log(projects)
         let createClose=()=>this.setState({createShow:false});
         let editClose=()=>this.setState({editShow:false});
         return(
-            <div class="col-lg-12  text-center">
+            <div className="col-lg-12  text-center">
                 <h1>All projects</h1>
                 <Table className="mt-4" striped bordered hover size="sm">
                     <thead>
@@ -100,14 +99,14 @@ export class AllProjects extends Component{
                                                 </Button>
 
                                                 <Button className="mr-2" variant="danger"
-                                            onClick={()=>this.deleteProject(proj.id)}>
+                                                onClick={()=>this.deleteProject(proj.id)}>
                                                     Delete
                                                 </Button>
-
-                                                <Button className="mr-2" variant="primary">
-                                                    Members
-                                                </Button>
-
+                                                <Link to={'/ProjectMember/'+proj.id}>
+                                                    <Button className="mr-2" variant="primary">
+                                                        Members
+                                                    </Button>
+                                                </Link>
                                                 <Button className="mr-2" variant="secondary">
                                                     Statistic
                                                 </Button>

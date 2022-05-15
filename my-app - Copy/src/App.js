@@ -3,6 +3,7 @@ import './App.css';
 
 import {Home} from './Home';
 import {AllProjects} from './AllProjects';
+import {ProjectMember} from './ProjectMember';
 import {Navigation} from './Navigation';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -17,6 +18,7 @@ function App() {
      <Switch>
        <Route path='/' component={Home} exact/>
        <Route path='/allProjects' component={AllProjects}/>
+       <Route path='/ProjectMember/:id' component={ProjectMember}/>
      </Switch>
     </div>
     </BrowserRouter>
