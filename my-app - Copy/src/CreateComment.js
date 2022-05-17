@@ -4,11 +4,11 @@ import {Modal,Button, Row, Col, Form} from 'react-bootstrap';
 export class CreateComment extends Component{
     constructor(props){
         super(props);
-        this.handleSubmit=this.createComent.bind(this);
+        this.handleSubmit=this.CreateComment.bind(this);
     }
 
 
-    createComent(event){
+    CreateComment(event){
         event.preventDefault();
         console.log(event.target.from_line.value)
         if(event.target.from_line.value == ""){
@@ -59,7 +59,7 @@ export class CreateComment extends Component{
 
                     <Row>
                         <Col sm={6}>
-                            <Form onSubmit={this.createComent}>
+                            <Form onSubmit={this.CreateComment}>
                                 <Form.Group controlId="text">
                                     <Form.Label>Text</Form.Label>
                                     <Form.Control type="text" name="text" required 

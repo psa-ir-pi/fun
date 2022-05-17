@@ -1,14 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { requestData, getTableDataFromJSONObject } from "./common/CommonFunctions.js";
-
 import ReactTable from "react-table-6";
-import LoadingSpinner from "./widgets/LoadingSpinner.js";
 import RecordCount from "./widgets/RecordCount.js";
-// import { ReactTableDefaults } from "react-table";
-
 import "./index.css";
-import TasksTable from "./TasksTable.js";                                                 //---> 1
+import TasksTable from "./TasksTable.js";                                          
+import { useHistory } from "react-router-dom";
 
 
 const SprintsTable = (props) => {
@@ -40,7 +37,6 @@ const SprintsTable = (props) => {
     return () => {
       _isMounted.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function fetchData(state) {
@@ -79,8 +75,12 @@ const SprintsTable = (props) => {
       }
     });
   }
-
+  const history = useHistory();
+    const sprintPage = (id) => {
+      history.push("/sprint/"+id)
+  }
   return (
+    
     <React.Fragment>
     	<div style={{ textAlign: "center", padding: "35px" }}>
         <p />
@@ -104,6 +104,15 @@ const SprintsTable = (props) => {
                 accessor: "date",
                 className: "LeftAlignedText",
                 headerClassName: "BoldText ColoredText"
+              },
+              {
+                Header: "View sprint",
+                accessor: "id",
+                Cell: cell => (
+                <button className="btn btn-success" 
+                onClick={() =>sprintPage(cell.original.id)}>Kanban board
+                </button>
+                )
               }
             ]}
             defaultSorted={[

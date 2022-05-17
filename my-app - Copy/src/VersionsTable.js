@@ -1,12 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { requestData, getTableDataFromJSONObject } from "./common/CommonFunctions.js";
-
 import ReactTable from "react-table-6";
-import LoadingSpinner from "./widgets/LoadingSpinner.js";
 import RecordCount from "./widgets/RecordCount.js";
-
 import "./index.css";
+import { useHistory } from "react-router-dom";
+
 
 
 const VersionsTable = (props) => {
@@ -19,8 +18,6 @@ const VersionsTable = (props) => {
   const [totalRecords, setTotalRecords] = useState(null);
   const sort = [{"id": "id","desc": false}];
 
-  
-  
   function getVersions() {
     return requestData(
       "/version/" + props.Id,
@@ -34,15 +31,12 @@ const VersionsTable = (props) => {
 
     _isMounted.current = true;
     fetchData();
-
     return () => {
       _isMounted.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function fetchData(state) {
-    
     let pageSize = state === undefined ? 5 : state.pageSize;
     let page = state === undefined ? 0 : state.page;
     let sorted = state === undefined ? sort : state.sorted;
@@ -77,7 +71,10 @@ const VersionsTable = (props) => {
       }
     });
   }
-
+  const history = useHistory();
+    const versionPage = (id) => {
+      history.push("/version/"+id)
+  }
   return (
     <React.Fragment>
     	<div style={{ textAlign: "center", padding: "35px" }}>
@@ -96,6 +93,15 @@ const VersionsTable = (props) => {
                 accessor: "date",
                 className: "LeftAlignedText",
                 headerClassName: "BoldText ColoredText"
+              },
+              {
+                Header: "View code",
+                accessor: "id",
+                Cell: cell => (
+                <button className="btn btn-success" 
+                onClick={() =>versionPage(cell.original.id)}>Code
+                </button>
+                )
               }
             ]}
             defaultSorted={[

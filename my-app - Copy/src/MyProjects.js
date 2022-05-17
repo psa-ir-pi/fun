@@ -10,6 +10,9 @@ import SprintsTable from "./SprintsTable.js";                                   
 import "./index.css";
 import "react-table/react-table.css";
 
+import {Branch} from './Branch.js';
+import { useHistory } from "react-router-dom";
+
 //Set default values of React Table
 Object.assign(ReactTableDefaults, {
   multiSort: false,
@@ -25,6 +28,9 @@ const MyProjects = () => {
   const [data, setData] = useState([]);
   const [totalRecords, setTotalRecords] = useState(null);
   const sort = [{"id": "id","desc": false}];
+
+  const [branchShow, setBranch] = useState(false);
+  
   
   function getProjects() {
 
@@ -83,6 +89,14 @@ const MyProjects = () => {
     });
   }
   console.log(data)
+  //let createClose=()=>this.setState({createShow:false});
+  let branchClose=()=>setBranch(false);
+
+  const history = useHistory();
+  
+    const branchPage = (id) => {
+        history.push("/branch/"+id)
+    }
   return (
     <React.Fragment>
     	<div style={{ textAlign: "center", padding: "35px" }}>
@@ -116,6 +130,15 @@ const MyProjects = () => {
                 accessor: "description",
                 className: "LeftAlignedText",
                 headerClassName: "BoldText ColoredText"
+              },
+              {
+                Header: "View Branches",
+                accessor: "id",
+                Cell: cell => (
+                <button className="btn btn-success" 
+                onClick={() =>branchPage(cell.original.id)}>Branch tree
+                </button>
+                )
               }
             ]}
             defaultSorted={[

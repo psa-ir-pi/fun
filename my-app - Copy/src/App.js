@@ -11,6 +11,9 @@ import React, { useState } from "react";
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
+
+import Branch from './Branch';
+
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +26,7 @@ function App() {
        <Route path='/allProjects' component={AllProjects}/>
        <Route path='/myProjects' component={MyProjects}/>
        <Route path='/comments' component={ControlComment}/>
+       <Route path='/branch/:id' component={Branch}/>
      </Switch>
     </div>
     </BrowserRouter>

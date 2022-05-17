@@ -1,12 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { requestData, getTableDataFromJSONObject } from "./common/CommonFunctions.js";
-
 import ReactTable from "react-table-6";
-import LoadingSpinner from "./widgets/LoadingSpinner.js";
 import RecordCount from "./widgets/RecordCount.js";
-// import { ReactTableDefaults } from "react-table";
-
 import "./index.css";
 import VersionsTable from "./VersionsTable.js";   
 
@@ -19,8 +15,6 @@ const BranchesTable = (props) => {
   const [data, setData] = useState([]);
   const [totalRecords, setTotalRecords] = useState(null);
   const sort = [{"id": "id","desc": false}];
-
-  
   
   function getBranches() {
     return requestData(
@@ -30,20 +24,15 @@ const BranchesTable = (props) => {
     );
 
   }
-  
   useEffect(() => {
-
     _isMounted.current = true;
     fetchData();
-
     return () => {
       _isMounted.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function fetchData(state) {
-    
     let pageSize = state === undefined ? 5 : state.pageSize;
     let page = state === undefined ? 0 : state.page;
     let sorted = state === undefined ? sort : state.sorted;

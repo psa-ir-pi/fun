@@ -1,12 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { requestData, getTableDataFromJSONObject } from "./common/CommonFunctions.js";
-
 import ReactTable from "react-table-6";
-import LoadingSpinner from "./widgets/LoadingSpinner.js";
 import RecordCount from "./widgets/RecordCount.js";
-// import { ReactTableDefaults } from "react-table";
-
 import "./index.css";
 import BranchesTable from "./BranchesTable.js";   
 
@@ -20,8 +16,6 @@ const TasksTable = (props) => {
   const [totalRecords, setTotalRecords] = useState(null);
   const sort = [{"id": "id","desc": false}];
 
-  
-  
   function getTasks() {
     return requestData(
       "/task/" + props.Id,
@@ -30,16 +24,12 @@ const TasksTable = (props) => {
     );
 
   }
-  
   useEffect(() => {
-
     _isMounted.current = true;
     fetchData();
-
     return () => {
       _isMounted.current = false;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function fetchData(state) {
