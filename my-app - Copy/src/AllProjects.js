@@ -30,12 +30,12 @@ export class AllProjects extends Component{
     }
 
     componentDidUpdate(){
-        this.getProjects();
+        console.dir('broke')
     }
 
     // gets all tasks assigned to project and test whether they are Uzdaryti
     testIfAllTasksFinished(projectid){
-        fetch(process.env.REACT_APP_API+'task/ProjectTasks'+projectid)
+        fetch(process.env.REACT_APP_API+'task/ProjectTasks/'+projectid)
         .then(response=>response.json())
         .then(data=>{
             this.setState({tasks:data});
@@ -68,12 +68,17 @@ export class AllProjects extends Component{
                 });
             }
         }
+        setTimeout(() => {
+            this.getProjects();
+        }, 500);
     }
 
     render(){
         const {projects, projectId,projectName, projectDate, projectDescription}=this.state;//delete projectDescription mayby
-        let createClose=()=>this.setState({createShow:false});
-        let editClose=()=>this.setState({editShow:false});
+        let createClose=()=>{this.setState({createShow:false})
+        this.getProjects();};
+        let editClose=()=>{this.setState({editShow:false})
+        this.getProjects();};
         return(
             <div className="col-lg-12  text-center">
                 <h1>All projects</h1>

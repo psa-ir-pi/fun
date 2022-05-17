@@ -5,22 +5,19 @@ export class CreateTasks extends Component{
     constructor(props){
         super(props);
         this.submitSprintName=this.submitSprintName.bind(this);
-        this.state={projects:[]};
+        this.state={projects:[],currentDate:'',
+            task_type:[{id:1, name:'Tester'},{id:2, name:'Back end'},{id:3, name:'Front end'},{id:4, name:'Designer'}]};
     }
 
-    getProjects(){
-        fetch(process.env.REACT_APP_API+'CreateSprint/'+this.props.userid)
-        .then(response=>response.json())
-        .then(data=>{
-            this.setState({projects:data});
-        });
-    }
     componentDidMount(){
-        this.getProjects();
+        var tempDate = new Date();
+        var date = tempDate.getFullYear() + '-' + (tempDate.getMonth()+1) + '-' + tempDate.getDate()
+        this.setState({currentDate:date})
     }
     submitSprintName(event){
         event.preventDefault();
-        fetch(process.env.REACT_APP_API+'CreateSprint',{
+        const sprintid = this.props.sprintid; 
+        fetch(process.env.REACT_APP_API+'CreateTasks',{
             method:'POST',
             headers:{
                 'Accept':'application/json',
@@ -29,7 +26,10 @@ export class CreateTasks extends Component{
             body:JSON.stringify({
                 id:0,
                 name:event.target.name.value,
-                foreign_project:event.target.projectid.value
+                description:event.target.description.value,
+                type:event.target.type.value,
+                points:event.target.points.value,
+                foreign_sprint:sprintid
             })
         })
         .then(res=>res.json())
@@ -52,7 +52,7 @@ export class CreateTasks extends Component{
             >
                 <Modal.Header clooseButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Add sprint
+                        Add task
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -61,19 +61,26 @@ export class CreateTasks extends Component{
                         <Col sm={6}>
                             <Form onSubmit={this.submitSprintName}>
                                 <Form.Group controlId="name">
-                                    <Form.Label>Sprint Name</Form.Label>
-                                    <Form.Control type="text" name="name" required 
-                                    placeholder=''/>
+                                    <Form.Label>Task's name</Form.Label>
+                                    <Form.Control type="text" required />
                                 </Form.Group>
-                                <Form.Group  controlId="projectid">
-                                <Form.Label>User's managed projects</Form.Label>
-                                <Form.Control as="select" required>
-                                    {this.state.projects.map(proj =>
-                                        <option key={proj.id} value={proj.id}>{proj.name}</option>
-                                    )}
-                                </Form.Control>
-                            </Form.Group>
-                            <Form.Group>
+                                <Form.Group controlId="description">
+                                    <Form.Label>Task's description</Form.Label>
+                                    <Form.Control type="textarea" />
+                                </Form.Group>
+                                <Form.Group  controlId="type">
+                                    <Form.Label>Task type</Form.Label>
+                                    <Form.Control as="select" required>
+                                        {this.state.task_type.map(type =>
+                                            <option key={type.id} value={type.id}>{type.name}</option>
+                                        )}
+                                    </Form.Control>
+                                </Form.Group>
+                                <Form.Group controlId="points">
+                                    <Form.Label>Task's points</Form.Label>
+                                    <Form.Control type="number"  required />
+                                </Form.Group>
+                                <Form.Group>
                                 <Button variant="primary" type="submit">
                                     Add Sprint
                                 </Button>

@@ -49,7 +49,7 @@ namespace WebAPI.Controllers
         public JsonResult Insert(TeamMember teamMember)
         {
             string query = @"
-                inset into dbo.Team_member
+                insert into dbo.Team_member
                 (specialization,foreign_user,foreign_project) values
                 ("+teamMember.specialization+","+teamMember.foreign_user+","+teamMember.foreign_project+")";
             DataTable table = new DataTable();

@@ -17,44 +17,15 @@ namespace WebAPI.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet("{id}")]
-        public JsonResult Get(int id)
-        {
-            string query = @"
-                select pj.id, pj.name from Project pj
-                inner join Team_member on Team_member.foreign_project = pj.id
-                inner join Team_leader on Team_leader.foreign_team_member = Team_member.id
-                inner join [User] on [User].id = Team_member.foreign_user
-                where [User].id = " + id + ";";
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader); ;
-
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-
-            return new JsonResult(table);
-        }
-
 
         [HttpPost]
-        public JsonResult Insert(Sprint sprint)
+        public JsonResult Insert(Task task)
         {
-            string query = @"
-               insert into Sprint (name,date,foreign_project)
-                values ("+sprint.name+",CURRENT_TIMESTAMP,"+sprint.foreign_project+");";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
             SqlDataReader myReader;
+
+            string query = "select * from Task where Task.name='"+task.name+"'";
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
                 myCon.Open();
@@ -67,7 +38,60 @@ namespace WebAPI.Controllers
                     myCon.Close();
                 }
             }
+            if (table.Rows.Count > 0)
+            {
+                return new JsonResult("task with this name already exists");
+            }
+            query = @"
+               INSERT INTO Task
+                ([name],[description],[state],[type],[points],[creation_date],[foreign_sprint])
+                VALUES
+                ('"+task.name+"','"+task.description+ "',1," + task.type+","+task.points + ",CURRENT_TIMESTAMP," + task.foreign_sprint+")";
+           
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); ;
 
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            query = @"
+                    insert into dbo.Branch (foreign_task) 
+                    select id from Task where Task.name = '"+task.name+"'";
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); ;
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            query = @"
+                    insert into dbo.Version (foreign_branch, date) 
+                    select Branch.id , CURRENT_TIMESTAMP from Branch
+                    inner join Task on Task.id = Branch.foreign_task
+                    where Task.name = '"+task.name+"'";
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); ;
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
             return new JsonResult("Added Successfully");
         }
 

@@ -6,8 +6,8 @@ export class ProjectMember extends Component{
 
     constructor(props){
         super(props);
-        this.state={members:[],availableUser:[],projectid:this.props.match.params.id,specialization:[]};
-        this.handleSubmit=this.handleSubmit.bind(this);
+        this.state={members:[],availableUser:[],projectid:this.props.match.params.id,specialization:[{id:1, name:'Tester'},{id:2, name:'Back end'},{id:3, name:'Front end'},{id:4, name:'Designer'}]};
+        this.addUserToTeam=this.addUserToTeam.bind(this);
     }
 
     getInfo(){
@@ -21,10 +21,6 @@ export class ProjectMember extends Component{
     componentDidMount(){
         this.getInfo();
         this.getUsersNotInProject();
-        this.setState({specialization:[{id:1, name:'Tester'},{id:2, name:'Back end'},{id:3, name:'Front end'},{id:4, name:'Designer'}]})
-    }
-
-    componentDidUpdate(){
     }
 
     // gets all tasks assigned to team member and test whether they are closed
