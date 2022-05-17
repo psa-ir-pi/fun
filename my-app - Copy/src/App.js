@@ -6,6 +6,8 @@ import {AllProjects} from './AllProjects';
 import {ProjectMember} from './ProjectMember';
 import {CodeView} from './CodeView';
 import {ControlSprint} from './ControlSprint';
+import {ControlTasks} from './ControlTasks';
+import { AssignManually } from './AssignManually';
 import {Navigation} from './Navigation';
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
@@ -23,6 +25,8 @@ function App() {
        <Route path='/ProjectMember/:id' component={ProjectMember}/>
        <Route path='/CodeView/:id' component={CodeView}/>
        <Route path='/ControlSprint/:userid' component={ControlSprint}/>
+       <Route path='/ControlTasks/:sprintid/:sprintName' component={ControlTasks}/>
+       <Route path='/AssignManually/:taskid' component={AssignManually}/>
      </Switch>
     </div>
     </BrowserRouter>

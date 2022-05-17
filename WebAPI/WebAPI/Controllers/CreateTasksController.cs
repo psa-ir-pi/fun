@@ -8,11 +8,11 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CreateSprintController : ControllerBase
+    public class CreateTasksController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public CreateSprintController(IConfiguration configuration)
+        public CreateTasksController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -51,7 +51,7 @@ namespace WebAPI.Controllers
         {
             string query = @"
                insert into Sprint (name,date,foreign_project)
-                values ('"+sprint.name+"',CURRENT_TIMESTAMP,"+sprint.foreign_project+");";
+                values ("+sprint.name+",CURRENT_TIMESTAMP,"+sprint.foreign_project+");";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
             SqlDataReader myReader;
