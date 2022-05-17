@@ -10,6 +10,7 @@ import {Navigation} from './Navigation';
 import React, { useState } from "react";
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import { Sprint } from './Sprint';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
        <Route path='/allProjects' component={AllProjects}/>
        <Route path='/myProjects' component={MyProjects}/>
        <Route path='/comments' component={ControlComment}/>
+       <Route path='/sprint' component={Sprint}/>
      </Switch>
     </div>
     </BrowserRouter>

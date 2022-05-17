@@ -22,7 +22,9 @@ export class Navigation extends Component{
                 <NavLink className="d-inline p-2 bg-dark text-white" to="/comments">
                     Comments
                 </NavLink>
-
+                <NavLink className="d-inline p-2 bg-dark text-white" to="/sprint">
+                    Sprint
+                </NavLink>
                 </Nav>
                 </Navbar.Collapse>
             </Navbar>
