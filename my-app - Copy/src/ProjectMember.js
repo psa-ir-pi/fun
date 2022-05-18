@@ -39,7 +39,7 @@ export class ProjectMember extends Component{
     }
 
     getUsersNotInProject(){
-        fetch(process.env.REACT_APP_API+'user/GetNonParticipants/'+this.state.projectid)
+        fetch(process.env.REACT_APP_API+'projectMember/GetNonParticipants/'+this.state.projectid)
         .then(response=>response.json())
         .then(data=>{
             this.setState({availableUser:data});

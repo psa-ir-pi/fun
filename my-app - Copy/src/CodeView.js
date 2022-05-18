@@ -41,7 +41,7 @@ export class CodeView extends Component{
                         {lines.map(line=>
                             <tr key={line.id}>
                                 <td className='col-lg-1  text-center'>{line.line_number}</td>
-                                <td className='col-lg-11  text-left'>{line.line}</td>
+                                <td className='col-lg-11  text-left'><pre>{line.line}</pre></td>
                             </tr>)}
                     </tbody>
                 </Table>

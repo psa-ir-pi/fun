@@ -30,7 +30,6 @@ export class AllProjects extends Component{
     }
 
     componentDidUpdate(){
-        console.dir('broke')
     }
 
     // gets all tasks assigned to project and test whether they are Uzdaryti

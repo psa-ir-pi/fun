@@ -45,8 +45,6 @@ export class AssignManually extends Component{
                 pointsUsed += point.points
             }
             const leftPoints = maxPoints-pointsUsed;
-            console.dir(member);
-            console.dir(usersPoints);
             if(leftPoints >= this.props.task.points){
                 availableMembers.push({user:member,leftP:leftPoints});
             }
