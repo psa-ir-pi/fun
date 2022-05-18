@@ -4,32 +4,67 @@ import {Modal,Button, Row, Col, Form} from 'react-bootstrap';
 export class AssignManually extends Component{
     constructor(props){
         super(props);
-        this.submitSprintName=this.submitSprintName.bind(this);
-        this.state={projects:[]};
+        this.assign=this.assign.bind(this);
+        this.state={members:[],available:[]};
     }
 
-    getProjects(){
-        fetch(process.env.REACT_APP_API+'CreateSprint/'+this.props.userid)
+    getMembers(){
+        fetch(process.env.REACT_APP_API+'AssignManually/'+this.props.task.id)
         .then(response=>response.json())
         .then(data=>{
-            this.setState({projects:data});
+            this.setState({members:data});
         });
     }
     componentDidMount(){
-        this.getProjects();
+        this.getMembers();
     }
-    submitSprintName(event){
+    componentDidUpdate(prevProps){
+        if(prevProps.show !== this.props.show){
+            this.checkMembers();
+        }
+    }
+
+    async checkMembers(){
+        var specialist=[];
+        for(const member of this.state.members){
+            if(member.specialization == this.props.task.type){
+                specialist.push(member);
+            }
+        }
+        var availableMembers = [];
+        for(const member of specialist){
+            const maxPoints = member.max_points;
+            var usersPoints=[];
+            await fetch(process.env.REACT_APP_API+'AssignManually/GetUsersPoints/'+member.foreign_user)
+            .then(response=>response.json())
+            .then(data=>{
+                usersPoints=data;
+            });
+            var pointsUsed = 0;
+            for(const point of usersPoints){
+                pointsUsed += point.points
+            }
+            const leftPoints = maxPoints-pointsUsed;
+            console.dir(member);
+            console.dir(usersPoints);
+            if(leftPoints >= this.props.task.points){
+                availableMembers.push({user:member,leftP:leftPoints});
+            }
+        }
+        this.setState({available:availableMembers});
+    }
+
+    assign(event){
         event.preventDefault();
-        fetch(process.env.REACT_APP_API+'CreateSprint',{
-            method:'POST',
+        fetch(process.env.REACT_APP_API+'AssignManually',{
+            method:'PUT',
             headers:{
                 'Accept':'application/json',
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                id:0,
-                name:event.target.name.value,
-                foreign_project:event.target.projectid.value
+                id:this.props.task.id,
+                foreign_Team_member:event.target.memberid.value
             })
         })
         .then(res=>res.json())
@@ -38,10 +73,11 @@ export class AssignManually extends Component{
         },
         (error)=>{
             alert('Failed');
-        })
+        });
     }
 
-    render(){     
+    render(){    
+
         return (
             <div className="container">
             <Modal
@@ -50,32 +86,27 @@ export class AssignManually extends Component{
             aria-labelledby="contained-modal-title-vcenter"
             centered
             >
-                <Modal.Header clooseButton>
+                <Modal.Header >
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Add sprint
+                        Choose member for task
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
 
                     <Row>
                         <Col sm={6}>
-                            <Form onSubmit={this.submitSprintName}>
-                                <Form.Group controlId="name">
-                                    <Form.Label>Sprint Name</Form.Label>
-                                    <Form.Control type="text" name="name" required 
-                                    placeholder=''/>
-                                </Form.Group>
-                                <Form.Group  controlId="projectid">
-                                <Form.Label>User's managed projects</Form.Label>
+                            <Form onSubmit={this.assign}>
+                                <Form.Group  controlId="memberid">
+                                <Form.Label>User</Form.Label>
                                 <Form.Control as="select" required>
-                                    {this.state.projects.map(proj =>
-                                        <option key={proj.id} value={proj.id}>{proj.name}</option>
+                                    {this.state.available.map(mem =>
+                                        <option key={mem.user.id} value={mem.user.id}>{mem.user.name}</option>
                                     )}
                                 </Form.Control>
                             </Form.Group>
                             <Form.Group>
                                 <Button variant="primary" type="submit">
-                                    Add Sprint
+                                    Assign member to task
                                 </Button>
                             </Form.Group>
                             </Form>

@@ -1,9 +1,7 @@
 import React,{Component} from 'react';
 import {Table} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import {Button,ButtonToolbar} from 'react-bootstrap';
 import {CreateTasks} from './CreateTasks';
-import { format } from 'date-fns'
 import { AssignManually } from './AssignManually';
 
 export class ControlTasks extends Component{
@@ -117,7 +115,7 @@ export class ControlTasks extends Component{
         const tasks=this.state.tasks
         let createClose=()=>{this.setState({createShow:false});
         this.getAllTasks()};
-        let assignClose=()=>{this.setState({assignClose:false});
+        let assignClose=()=>{this.setState({assignShow:false});
         this.getAllTasks()};
         return(
             <div className="col-lg-12  text-center">
@@ -153,9 +151,10 @@ export class ControlTasks extends Component{
                                         onClick={()=>this.setState({assignShow:true})}>
                                         Assign member manually</Button>
 
-                                        {/* <AssignManually show={this.state.createShow}
+                                        <AssignManually show={this.state.assignShow}
                                         onHide={assignClose}
-                                        /> */}
+                                        task={task}
+                                        />
                                         <Button className="mr-2" variant="primary"
                                         onClick={()=>this.automaticAssignment(task)}>
                                             Assign task automaticly  

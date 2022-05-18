@@ -8,47 +8,19 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ControlTasksController : ControllerBase
+    public class AssignManually : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public ControlTasksController(IConfiguration configuration)
+        public AssignManually(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        [HttpGet("{id}")]
-        public JsonResult Get(int id)
-        {
-            string query = @"
-                select Task.id,Task.name,Task.description,State_types.type state,Task.type,Task.points,Task.creation_date,Task.closing_date,Task.foreign_sprint,
-	                Task.foreign_Team_member,[User].name userName from Task
-                    left join Team_member on Task.foreign_Team_member = Team_member.id
-                    left join [User] on [User].id = Team_member.foreign_user
-                    inner join State_types on Task.state=State_types.id
-                    where Task.foreign_sprint = " + id; 
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader); ;
 
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-
-            return new JsonResult(table);
-        }
-
-        [Route("GetSpecializedMembers/{taskid}")]
-        [HttpGet]
-        public JsonResult GetSpecializedMembers(int taskid)
+       
+        [HttpGet("{taskid}")]
+        public JsonResult get(int taskid)
         {
             string query = @"
                 select Team_member.*,[User].max_points,[User].name from Team_member
@@ -101,9 +73,8 @@ namespace WebAPI.Controllers
             return new JsonResult(table);
         }
 
-        [Route("AddMemberToTask")]
         [HttpPut]
-        public JsonResult AddMemberToTask(Task task)
+        public JsonResult Put(Task task)
         {
             string query = @"
                 update Task set 
