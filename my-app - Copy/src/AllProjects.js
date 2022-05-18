@@ -34,7 +34,7 @@ export class AllProjects extends Component{
 
     // gets all tasks assigned to project and test whether they are Uzdaryti
     testIfAllTasksFinished(projectid){
-        fetch(process.env.REACT_APP_API+'task/ProjectTasks/'+projectid)
+        fetch(process.env.REACT_APP_API+'task/')
         .then(response=>response.json())
         .then(data=>{
             this.setState({tasks:data});

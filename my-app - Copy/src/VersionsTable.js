@@ -73,7 +73,7 @@ const VersionsTable = (props) => {
   }
   const history = useHistory();
     const versionPage = (id) => {
-      history.push("/version/"+id)
+      history.push("/CodeView/"+id)
   }
   return (
     <React.Fragment>

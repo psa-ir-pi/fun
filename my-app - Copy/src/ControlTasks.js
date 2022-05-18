@@ -17,7 +17,9 @@ export class ControlTasks extends Component{
         .then(data=>{
             for (let task of data) {
                 task.creation_date = task.creation_date.slice(0, 10);
-                task.closing_date = task.closing_date.slice(0, 10);
+                if(task.closing_date != null){
+                    task.closing_date = task.closing_date.slice(0, 10);
+                }
             }
             this.setState({tasks:data});
         });
@@ -79,7 +81,6 @@ export class ControlTasks extends Component{
                         (error)=>{
                             alert('Failed');
                         });
-                        this.getAllTasks();
                         return;
                     }else{
                         availableMembers.splice(availableMembers.indexOf(choosen), 1);
@@ -121,9 +122,9 @@ export class ControlTasks extends Component{
     render(){
         const tasks=this.state.tasks
         let createClose=()=>{this.setState({createShow:false});
-        this.getAllTasks()};
+            this.getAllTasks()};
         let assignClose=()=>{this.setState({assignShow:false});
-        this.getAllTasks()};
+            this.getAllTasks()};
         return(
             <div className="col-lg-12  text-center">
                 <h1>Tasks assigned to sprint {this.props.match.params.sprintName}</h1>
@@ -163,7 +164,7 @@ export class ControlTasks extends Component{
                                         task={task}
                                         />
                                         <Button className="mr-2" variant="primary"
-                                        onClick={()=>this.automaticAssignment(task)}>
+                                        onClick={()=>{this.automaticAssignment(task);this.getAllTasks()}}>
                                             Assign task automaticly  
                                         </Button>
                                         </ButtonToolbar>
