@@ -22,6 +22,7 @@ class Branch extends Component{
         var dates = []
         var bId = []
         var layers=[]
+        var colors=["#1F45FC", "#00FFFF", "#008080", "#347235","#4CC417","#EDDA74","##FFFF00","#FFA62F","#966F33"]
         fetch(process.env.REACT_APP_API+'version/getAll/'+id)
         .then(response=>response.json())
         .then(data=>{
@@ -64,7 +65,7 @@ class Branch extends Component{
                         type: 'default',
                         data: { label: index.toString(), id:d.id },
                         position: { x: 250+ ci*50, y: 25 + index*50 },
-                        style: { width: 30, height:30, borderRadius: "50%"},
+                        style: { width: 30, height:30, borderRadius: "50%", backgroundColor:colors[ci]},
                       })
                       if(index > 0){
                           const l = allNodes[ci].length
@@ -92,8 +93,7 @@ class Branch extends Component{
     }
 
     componentDidMount(){
-      console.log(this.state.id)
-      this.getVersionElementsToDisplay(5);
+      this.getVersionElementsToDisplay(this.state.id);
     }
 
     // componentDidUpdate(){
