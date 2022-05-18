@@ -8,9 +8,17 @@ import {CodeView} from './CodeView';
 import {ControlSprint} from './ControlSprint';
 import {ControlTasks} from './ControlTasks';
 import { AssignManually } from './AssignManually';
+
+import MyProjects from './MyProjects';
+import {ControlComment} from './ControlComment';
 import {Navigation} from './Navigation';
 
+import React, { useState } from "react";
+
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+
+
+import Branch from './Branch';
 
 function App() {
   return (
@@ -27,6 +35,9 @@ function App() {
        <Route path='/ControlSprint/:userid' component={ControlSprint}/>
        <Route path='/ControlTasks/:sprintid/:sprintName' component={ControlTasks}/>
        <Route path='/AssignManually/:taskid' component={AssignManually}/>
+       <Route path='/myProjects' component={MyProjects}/>
+       <Route path='/comments' component={ControlComment}/>
+       <Route path='/branch/:id' component={Branch}/>
      </Switch>
     </div>
     </BrowserRouter>
