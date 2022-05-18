@@ -39,7 +39,7 @@ function App() {
        <Route path='/myProjects' component={MyProjects}/>
        <Route path='/comments' component={ControlComment}/>
        <Route path='/branch/:id' component={Branch}/>
-       <Route path='/sprint' component={Sprint}/>
+       <Route path='/sprint/:id' component={Sprint}/>
 
      </Switch>
     </div>

@@ -131,7 +131,7 @@ class Branch extends Component{
         const {nodes,edges}=this.state;
         const {history} = this.props;
         const nav = (id) => {
-            history.push("/branch/"+id)
+            history.push("/CodeView/"+id)
         }
         return(
             <ReactFlow onNodeClick={(event, node) => nav(node.data.id)} nodes={nodes} edges={edges} style={{ height: 1000 }}/>
