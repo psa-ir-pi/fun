@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Table} from 'react-bootstrap';
 import {Button,ButtonToolbar} from 'react-bootstrap';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {Push} from './Push';
 
 
 
@@ -9,11 +10,11 @@ export class Sprint extends Component{
 
     constructor(props){
         super(props);
-        this.state = {tasks:[], columns:[]};
+        this.state = {tasks:[], columns:[], pushShow:false, taskId:-1, taskName:'-1'};
         this.id = 1;
     }
 
-    onDragEnd(result,columns){
+    changeState(result,columns){
         if(!result.destination) return;
         const {source, destination} = result;
         if(source.droppableId != destination.droppableId){
@@ -23,7 +24,7 @@ export class Sprint extends Component{
                 id: result.draggableId,
                 state: result.destination.droppableId
             }
-            this.handleUpdate(task)
+            this.updateTaskState(task)
             const sourceItems = [...sourceColumn.items];
             const destItems = [...destColumn.items];
             const [removed] = sourceItems.splice(source.index, 1);
@@ -53,7 +54,7 @@ export class Sprint extends Component{
             })});
         }
     }
-    handleUpdate(task){
+    updateTaskState(task){
         fetch(process.env.REACT_APP_API+'task',{
             method:'PUT',
             headers:{
@@ -126,14 +127,15 @@ export class Sprint extends Component{
         this.getTasks();
     }
     render(){
-        const {tasks, columns}=this.state;
+        const {tasks, columns, taskId, taskName}=this.state;
+        let pushClose=()=>this.setState({pushShow:false});
         console.log(columns)
         return(
             <div style={{ justifyContent: 'center', height: '100%', textAlign: 'center'}}>
                 <h1>Sprint Tasks</h1>
                 <div style={{display: 'flex', justifyContent: 'center', height: '100%'}}>
 
-                    <DragDropContext onDragEnd={result => this.onDragEnd(result,columns)}>
+                    <DragDropContext onDragEnd={result => this.changeState(result,columns)}>
                         {Object.entries(columns).map(([id,column])=> {
                             return(
                                 <div style={{display: 'flex', flexDirection: 'column', alignItems:'center'}}>
@@ -166,13 +168,24 @@ export class Sprint extends Component{
                                                                                 userSelect: 'none',
                                                                                 padding: 16,
                                                                                 margin:'0 0 8px 0',
-                                                                                minHeight: '50px',
+                                                                                minHeight: '75px',
                                                                                 backgroundColor: column.name === 'Closed' ? '#000066' : snapshot.isDragDisabled ? '#9de26b' : '#456C86',
                                                                                 color: 'white',
                                                                                 ...provided.draggableProps.style
                                                                             }}
                                                                             >
                                                                                 {item.name}
+                                                                                <div>
+                                                                                <Button className="mr-2" width='20px' disabled={column.name === 'Closed' }
+                                                                                    onClick={()=>this.setState({pushShow:true, taskId:item.id, taskName:item.name})}>
+                                                                                            Push
+                                                                                </Button>
+                                                                                <Push show={this.state.pushShow}
+                                                                                    onHide={pushClose}
+                                                                                    taskId={taskId}
+                                                                                    taskName={taskName}
+                                                                                    />
+                                                                                </div>
                                                                             </div>
                                                                         )
                                                                     }}
