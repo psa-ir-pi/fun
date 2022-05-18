@@ -6,6 +6,8 @@ import {AllProjects} from './AllProjects';
 import MyProjects from './MyProjects';
 import {ControlComment} from './ControlComment';
 import {Navigation} from './Navigation';
+import {ControlFinishedTasks} from './ControlFinishedTasks';
+import {CloseTask} from './CloseTask';
 
 import React, { useState } from "react";
 
@@ -23,6 +25,8 @@ function App() {
        <Route path='/allProjects' component={AllProjects}/>
        <Route path='/myProjects' component={MyProjects}/>
        <Route path='/comments' component={ControlComment}/>
+       <Route path='/controlFinishedTasks' component={ControlFinishedTasks}/>
+       <Route path='/closeTask' component={CloseTask}/>
      </Switch>
     </div>
     </BrowserRouter>
