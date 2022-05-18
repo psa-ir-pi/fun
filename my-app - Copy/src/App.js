@@ -3,6 +3,12 @@ import './App.css';
 
 import {Home} from './Home';
 import {AllProjects} from './AllProjects';
+import {ProjectMember} from './ProjectMember';
+import {CodeView} from './CodeView';
+import {ControlSprint} from './ControlSprint';
+import {ControlTasks} from './ControlTasks';
+import { AssignManually } from './AssignManually';
+
 import MyProjects from './MyProjects';
 import {ControlComment} from './ControlComment';
 import {Navigation} from './Navigation';
@@ -24,6 +30,11 @@ function App() {
      <Switch>
        <Route path='/' component={Home} exact/>
        <Route path='/allProjects' component={AllProjects}/>
+       <Route path='/ProjectMember/:id' component={ProjectMember}/>
+       <Route path='/CodeView/:id' component={CodeView}/>
+       <Route path='/ControlSprint/:userid' component={ControlSprint}/>
+       <Route path='/ControlTasks/:sprintid/:sprintName' component={ControlTasks}/>
+       <Route path='/AssignManually/:taskid' component={AssignManually}/>
        <Route path='/myProjects' component={MyProjects}/>
        <Route path='/comments' component={ControlComment}/>
        <Route path='/branch/:id' component={Branch}/>

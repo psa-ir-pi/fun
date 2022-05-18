@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskController : ControllerBase
+    public class CreateSprintController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public TaskController(IConfiguration configuration)
+        public CreateSprintController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
@@ -20,8 +21,11 @@ namespace WebAPI.Controllers
         public JsonResult Get(int id)
         {
             string query = @"
-                    select * from dbo.Task
-                    where foreign_sprint =" + id;
+                select pj.id, pj.name from Project pj
+                inner join Team_member on Team_member.foreign_project = pj.id
+                inner join Team_leader on Team_leader.foreign_team_member = Team_member.id
+                inner join [User] on [User].id = Team_member.foreign_user
+                where [User].id = " + id + ";";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
             SqlDataReader myReader;
@@ -41,15 +45,13 @@ namespace WebAPI.Controllers
             return new JsonResult(table);
         }
 
-        [Route("TeamMemberTasks/{teamMemberid}")]
-        [HttpGet]
-        public JsonResult GetTeamMemberTasks(int teamMemberid)
+
+        [HttpPost]
+        public JsonResult Insert(Sprint sprint)
         {
             string query = @"
-                select Task.state from dbo.Task
-	            inner join dbo.Team_member
-		            on dbo.Team_member.id = dbo.Task.foreign_Team_member
-	            where dbo.Team_member.id =" + teamMemberid ;
+               insert into Sprint (name,date,foreign_project)
+                values ('"+sprint.name+"',CURRENT_TIMESTAMP,"+sprint.foreign_project+");";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
             SqlDataReader myReader;
@@ -66,8 +68,9 @@ namespace WebAPI.Controllers
                 }
             }
 
-            return new JsonResult(table);
+            return new JsonResult("Added Successfully");
         }
+
 
     }
 }

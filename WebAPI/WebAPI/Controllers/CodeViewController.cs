@@ -7,20 +7,20 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class CodeViewController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public UserController(IConfiguration configuration)
+        public CodeViewController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-
-        [HttpGet]
-        public JsonResult Get()
+        [HttpGet("{id}")]
+        public JsonResult Get(int id)
         {
             string query = @"
-                    select * from dbo.Users";
+                select dbo.Code_line.* from dbo.Code_line
+                where dbo.Code_line.foreign_version = " + id+";";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
             SqlDataReader myReader;
@@ -39,5 +39,7 @@ namespace WebAPI.Controllers
 
             return new JsonResult(table);
         }
+
+
     }
 }
