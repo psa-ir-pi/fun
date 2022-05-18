@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {Modal,Table, Button, Row, Col, Form} from 'react-bootstrap';
+import {Modal,Table,ButtonToolbar, Button, Row, Col, Form} from 'react-bootstrap';
 import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 
 export class Merge extends Component{
@@ -131,11 +131,16 @@ export class Merge extends Component{
                         </Row>
 
                         <textarea rows="4" cols="100" value={this.state.newCode} />
-
-                    <Button variant="primary"
-                    onClick={() => {this.closeTask(this.props.taskID, this.props.projectID, this.state.newCode)}}>
-                        Submit New changes
-                        </Button>
+                        <ButtonToolbar>
+                            <Button variant="primary"
+                                onClick={() => {this.closeTask(this.props.taskID, this.props.projectID, this.state.newCode)}}>
+                            Submit New changes
+                            </Button>
+                            <Button variant="primary"
+                                onClick={() => {this.setState({newCode:""})}}>
+                            Reset
+                            </Button>
+                        </ButtonToolbar>
 
                     </Modal.Body>
 
