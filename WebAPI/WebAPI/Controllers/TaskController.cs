@@ -67,32 +67,7 @@ namespace WebAPI.Controllers
             return new JsonResult(table);
         }
 
-        [HttpGet]
-        public JsonResult selectFinished()
-        {
-            string query = @"
-                    select  *, dbo.Task_type.type as taskType, dbo.Sprint.name as sprintName from dbo.Task 
-                    inner join dbo.Task_type on dbo.Task.type = dbo.Task_type.id 
-                    inner join dbo.Sprint on dbo.Task.foreign_sprint = dbo.Sprint.id 
-                    where dbo.Task.state = 3";
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader); ;
-
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-
-            return new JsonResult(table);
-        }
+        
 
         [HttpPut("close/{taskId}")]
         public JsonResult closeTask(int taskId)

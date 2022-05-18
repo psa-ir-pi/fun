@@ -193,5 +193,33 @@ namespace WebAPI.Controllers
                 return new JsonResult("Pushed Successfully");
             }
         }
+
+        [HttpPut("close/{taskId}")]
+        public JsonResult closeTask(int taskId)
+        {
+            string query = @"
+                    update dbo.Task set 
+                    state = 4,
+                    closing_date = CURRENT_TIMESTAMP
+                    where id = " + taskId + @" 
+                    ";
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); ;
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+
+            return new JsonResult("Updated Successfully");
+        }
     }
 }

@@ -29,7 +29,7 @@ export class Merge extends Component{
 
     closeTask(taskID,projectID, newCode){
         
-        fetch(process.env.REACT_APP_API+'task/close/'+taskID,{
+        fetch(process.env.REACT_APP_API+'merge/close/'+taskID,{
             method:'PUT',
             headers:{
                 'Accept':'application/json',

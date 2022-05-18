@@ -13,7 +13,7 @@ export class ControlFinishedTasks extends Component{
     }
 
     selectFinished(){
-        fetch(process.env.REACT_APP_API+'task')
+        fetch(process.env.REACT_APP_API+'controlfinishedtasks')
         .then(response=>response.json())
         .then(data=>{
             for (let task of data) {
@@ -24,17 +24,17 @@ export class ControlFinishedTasks extends Component{
     }
 
     async getMainVersionCode(taskid){
-        var rez = await fetch(process.env.REACT_APP_API+'task/projectID/'+taskid)
+        var rez = await fetch(process.env.REACT_APP_API+'controlfinishedtasks/projectID/'+taskid)
         .then(response=>response.json())
         //.then(data=>data[0].ProjectId);	
         //alert("project id " + rez[0].ProjectId)		
         //return rez[0].ProjectId;
         this.setState({projectID:rez[0].ProjectId})
-        var rez2 = await fetch(process.env.REACT_APP_API+'branch/projectBranch/'+rez[0].ProjectId)
+        var rez2 = await fetch(process.env.REACT_APP_API+'controlfinishedtasks/projectBranch/'+rez[0].ProjectId)
         .then(response=>response.json())
         //alert("versionId id " + rez2[0].versionId)
     
-        var rez3 = await fetch(process.env.REACT_APP_API+'codeline/versionCode/'+rez2[0].versionId)
+        var rez3 = await fetch(process.env.REACT_APP_API+'controlfinishedtasks/versionCode/'+rez2[0].versionId)
         .then(response=>response.json())
         //.then(data=>this.setState({projectID:data}))
     
@@ -50,11 +50,11 @@ export class ControlFinishedTasks extends Component{
 
     async getBranchVersionCode(taskid){
     
-        var rez = await fetch(process.env.REACT_APP_API+'branch/taskBranch/'+taskid)
+        var rez = await fetch(process.env.REACT_APP_API+'controlfinishedtasks/taskBranch/'+taskid)
         .then(response=>response.json())
         //alert("versionId id " + rez2[0].versionId)
     
-        var rez2 = await fetch(process.env.REACT_APP_API+'codeline/versionCode/'+rez[0].versionId)
+        var rez2 = await fetch(process.env.REACT_APP_API+'controlfinishedtasks/versionCode/'+rez[0].versionId)
         .then(response=>response.json())
         //.then(data=>this.setState({projectID:data}))
     
