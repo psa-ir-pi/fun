@@ -8,7 +8,7 @@ import { ReactTableDefaults } from "react-table-6";
 import SprintsTable from "./SprintsTable.js";                                                 //---> 1
 
 import "./index.css";
-import "react-table/react-table.css";
+//import "react-table/react-table.css";
 
 import {Branch} from './Branch.js';
 import { useHistory } from "react-router-dom";
