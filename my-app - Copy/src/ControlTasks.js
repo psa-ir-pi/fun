@@ -43,10 +43,11 @@ export class ControlTasks extends Component{
         else{
             var availableMembers = [];
             for(const member of specialist){
-                const maxPoints = this.findMemberMaxPoints(member);
-                const usersPoints=
-                await fetch(process.env.REACT_APP_API+'ControlTasks/GetUsersPoints/'+member.foreign_user)
-                .then(response=>response.json());
+                const maxP = this.findMemberMaxPoints(member);
+                const usersP=this.findMemberOccupiedPoints(member);
+                const maxPoints = await maxP;
+                const usersPoints = await usersP;
+                console.dir({maxPoints,usersPoints,member})
                 const leftPoints = this.findMemberFreePointTotal(maxPoints,usersPoints);
                 if(leftPoints >= task.points){
                     availableMembers.push({user:member,leftP:leftPoints});
@@ -89,7 +90,7 @@ export class ControlTasks extends Component{
         }
     }
 
-    findMemberMaxPoints(member){
+    async findMemberMaxPoints(member){
         return member.max_points;
     }
     selectMember(members){
@@ -103,12 +104,18 @@ export class ControlTasks extends Component{
         }
         return choosenOne;
     }
-    findMemberFreePointTotal(max,allPoints){
+    async findMemberOccupiedPoints(member){
+        const usersPoints=
+        await fetch(process.env.REACT_APP_API+'ControlTasks/GetUsersPoints/'+member.foreign_user)
+        .then(response=>response.json());
         var pointsUsed = 0;
-        for(const point of allPoints){
+        for(const point of usersPoints){
             pointsUsed += point.points
         }
-        return max-pointsUsed;
+        return pointsUsed;
+    }
+    findMemberFreePointTotal(max,allPoints){
+        return max-allPoints;
     }
 
     render(){
