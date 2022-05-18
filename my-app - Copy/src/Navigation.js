@@ -24,6 +24,8 @@ export class Navigation extends Component{
                 </NavLink>
                 <NavLink className="d-inline p-2 bg-dark text-white" to="/ControlSprint/1">
                     User's managed sprints
+                <NavLink className="d-inline p-2 bg-dark text-white" to="/sprint">
+                    Sprint
                 </NavLink>
                 </Nav>
                 </Navbar.Collapse>

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\WebAPI.csproj": {}
+    "C:\\Users\\viliu\\Desktop\\Komandinis\\fun\\WebAPI\\WebAPI\\WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\WebAPI.csproj": {
+    "C:\\Users\\viliu\\Desktop\\Komandinis\\fun\\WebAPI\\WebAPI\\WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\viliu\\Desktop\\Komandinis\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
         "projectName": "WebAPI",
-        "projectPath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
-        "packagesPath": "C:\\Users\\mante\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\obj\\",
+        "projectPath": "C:\\Users\\viliu\\Desktop\\Komandinis\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
+        "packagesPath": "C:\\Users\\viliu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\viliu\\Desktop\\Komandinis\\fun\\WebAPI\\WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mante\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\viliu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -67,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

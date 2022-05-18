@@ -16,6 +16,7 @@ import {Navigation} from './Navigation';
 import React, { useState } from "react";
 
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import { Sprint } from './Sprint';
 
 
 import Branch from './Branch';
@@ -38,6 +39,8 @@ function App() {
        <Route path='/myProjects' component={MyProjects}/>
        <Route path='/comments' component={ControlComment}/>
        <Route path='/branch/:id' component={Branch}/>
+       <Route path='/sprint' component={Sprint}/>
+
      </Switch>
     </div>
     </BrowserRouter>

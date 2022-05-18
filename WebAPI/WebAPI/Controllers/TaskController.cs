@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
@@ -50,6 +51,31 @@ namespace WebAPI.Controllers
 	            inner join dbo.Team_member
 		            on dbo.Team_member.id = dbo.Task.foreign_Team_member
 	            where dbo.Team_member.id =" + teamMemberid ;
+				DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); ;
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+			return new JsonResult(table);
+		}
+        [HttpPut]
+        public JsonResult Put(Task task)
+        {
+            string query = @"
+                    update dbo.Task set 
+                    state = '" + task.state + @"'
+                    where id = '" + task.id + @"'
+                    ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
             SqlDataReader myReader;
@@ -66,8 +92,8 @@ namespace WebAPI.Controllers
                 }
             }
 
-            return new JsonResult(table);
-        }
 
+            return new JsonResult("Updated Successfully");
+        }
     }
 }

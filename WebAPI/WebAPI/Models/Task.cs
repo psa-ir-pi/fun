@@ -17,6 +17,6 @@ namespace WebAPI.Models
         public DateTime closing_date { get; set; }
         public int foreign_sprint { get; set; }
         public int foreign_Team_member { get; set; }
-
+		public string lines { get; set; }
     }
 }
