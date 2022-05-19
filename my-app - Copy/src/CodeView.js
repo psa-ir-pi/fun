@@ -106,7 +106,7 @@ export class CodeView extends Component{
                                 <ButtonToolbar>
                                     <Button className="mr-2" variant="info"
                                         onClick={()=>{this.setState({comparisonShow:true}); this.selectCodeLines2(line.versionId)}}>
-                                    Compare versions
+                                    Compare code
                                     </Button>
                                             
                                     { <CodeComparison show={this.state.comparisonShow}
