@@ -21,6 +21,7 @@ class Branch extends Component{
         var allNodes = []
         var dates = []
         var bId = []
+        var bAllId = []
         var layers=[]
         var colors=["#1F45FC", "#00FFFF", "#008080", "#347235","#4CC417","#EDDA74","##FFFF00","#FFA62F","#966F33"]
         fetch(process.env.REACT_APP_API+'version/getAll/'+id)
@@ -52,10 +53,12 @@ class Branch extends Component{
                       }
                       layers.push(ai)
                     }
+                    bAllId.push(d.foreign_branch)
                 }
                 else{
                     ci=bId.indexOf(d.foreign_branch)
                 }
+                var di=bAllId.indexOf(d.foreign_branch)
                 allNodes[ci].push(index)
                 dates[ci].push(d.date)
                 var le = allNodes[0].length
@@ -65,7 +68,7 @@ class Branch extends Component{
                         type: 'default',
                         data: { label: index.toString(), id:d.id },
                         position: { x: 250+ ci*50, y: 25 + index*50 },
-                        style: { width: 30, height:30, borderRadius: "50%", backgroundColor:colors[ci]},
+                        style: { width: 30, height:30, borderRadius: "50%", backgroundColor:colors[di]},
                       })
                       if(index > 0){
                           const l = allNodes[ci].length
@@ -99,33 +102,6 @@ class Branch extends Component{
     // componentDidUpdate(){
     //     this.full();
     // }
-
-    initialNodes = [
-        {
-          id: '1',
-          type: 'input',
-          data: { label: '' },
-          position: { x: 250, y: 25 },
-          style: { width: 30, height:30, borderRadius: "50%"},
-        },
-      
-        {
-          id: '2',
-          data: { label: <div>Default Node</div> },
-          position: { x: 100, y: 125 },
-        },
-        {
-          id: '3',
-          type: 'output',
-          data: { label: 'Output Node' },
-          position: { x: 250, y: 250 },
-        },
-      ];
-      
-      initialEdges = [
-        { id: 'e1-2', source: '1', target: '2' },
-        { id: 'e2-3', source: '2', target: '3', animated: true },
-      ];
 
     render(){
         const {nodes,edges}=this.state;

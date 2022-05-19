@@ -15,7 +15,7 @@ export class Navigation extends Component{
                 </NavLink>
                 <NavLink className="d-inline p-2 bg-dark text-white" to="/allProjects">
                     All projects
-                </NavLink>
+                </NavLink>tart                
                 <NavLink className="d-inline p-2 bg-dark text-white" to="/myProjects">
                     My projects
                 </NavLink>
