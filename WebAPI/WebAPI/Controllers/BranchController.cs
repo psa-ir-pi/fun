@@ -100,5 +100,59 @@ namespace WebAPI.Controllers
 
             return new JsonResult(table);
         }
+
+        [Route("projectBranch/{projectid}")]
+        public JsonResult GetMainBranchVersion(int projectid)
+        {
+            string query = @$"
+                    select  top(1) dbo.version.id as versionId from dbo.Branch
+                    inner join dbo.version on dbo.Branch.id = dbo.Version.foreign_branch
+                    where dbo.Branch.foreign_project = {projectid}
+                    order by dbo.Version.id desc";
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); ;
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+
+            return new JsonResult(table);
+        }
+
+        [Route("taskBranch/{taskid}")]
+        public JsonResult GetThisBranchVersion(int taskid)
+        {
+            string query = @$"
+                    select  top(1) dbo.version.id as versionId from dbo.Branch
+                    inner join dbo.version on dbo.Branch.id = dbo.Version.foreign_branch
+                    where dbo.Branch.foreign_task = {taskid}
+                    order by dbo.Version.id desc";
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); ;
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+
+            return new JsonResult(table);
+        }
     }
 }

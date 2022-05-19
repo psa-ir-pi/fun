@@ -1,28 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using System.Data;
-using WebAPI.Models;
+
 
 namespace WebAPI.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskController : ControllerBase
+    public class ControlFinishedTasksController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public TaskController(IConfiguration configuration)
+        public ControlFinishedTasksController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-
-        [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        [HttpGet]
+        public JsonResult selectFinished()
         {
             string query = @"
-                    select * from dbo.Task
-                    where foreign_sprint =" + id;
+                    select  *, dbo.Task_type.type as taskType, dbo.Sprint.name as sprintName from dbo.Task 
+                    inner join dbo.Task_type on dbo.Task.type = dbo.Task_type.id 
+                    inner join dbo.Sprint on dbo.Task.foreign_sprint = dbo.Sprint.id 
+                    where dbo.Task.state = 3";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
             SqlDataReader myReader;
@@ -42,58 +49,6 @@ namespace WebAPI.Controllers
             return new JsonResult(table);
         }
 
-        [Route("TeamMemberTasks/{teamMemberid}")]
-        [HttpGet]
-        public JsonResult GetTeamMemberTasks(int teamMemberid)
-        {
-            string query = @"
-                select Task.state from dbo.Task
-	            inner join dbo.Team_member
-		            on dbo.Team_member.id = dbo.Task.foreign_Team_member
-	            where dbo.Team_member.id =" + teamMemberid ;
-				DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader); ;
-
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-			return new JsonResult(table);
-		}
-        [HttpPut]
-        public JsonResult Put(Task task)
-        {
-            string query = @"
-                    update dbo.Task set 
-                    state = '" + task.state + @"'
-                    where id = '" + task.id + @"'
-                    ";
-					DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader); ;
-
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-			return new JsonResult("Updated Successfully");
-		}
-		
         [HttpGet("projectID/{Taskid}")]
         public JsonResult GetProjectId(int Taskid)
         {
@@ -120,34 +75,84 @@ namespace WebAPI.Controllers
             return new JsonResult(table);
         }
 
-        
-
-        [HttpPut("close/{taskId}")]
-        public JsonResult closeTask(int taskId)
+        [Route("projectBranch/{projectid}")]
+        public JsonResult GetMainBranchVersion(int projectid)
         {
-                string query = @"
-                    update dbo.Task set 
-                    state = 4,
-                    closing_date = CURRENT_TIMESTAMP
-                    where id = " + taskId + @" 
-                    ";
-                DataTable table = new DataTable();
-                string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
-                SqlDataReader myReader;
-                using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            string query = @$"
+                    select  top(1) dbo.version.id as versionId from dbo.Branch
+                    inner join dbo.version on dbo.Branch.id = dbo.Version.foreign_branch
+                    where dbo.Branch.foreign_project = {projectid}
+                    order by dbo.Version.id desc";
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCon.Open();
-                    using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                    {
-                        myReader = myCommand.ExecuteReader();
-                        table.Load(myReader); ;
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); ;
 
-                        myReader.Close();
-                        myCon.Close();
-                    }
+                    myReader.Close();
+                    myCon.Close();
                 }
+            }
 
-                return new JsonResult("Updated Successfully");
+            return new JsonResult(table);
+        }
+
+        [HttpGet("versionCode/{versionId}")]
+        public JsonResult GetVersionCode(int versionId)
+        {
+            string query = @"
+                    select * from dbo.Code_line
+                    inner join dbo.version on dbo.Code_line.foreign_version = dbo.Version.id
+                    where dbo.Version.id =" + versionId;
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); ;
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+
+            return new JsonResult(table);
+        }
+
+        [Route("taskBranch/{taskid}")]
+        public JsonResult GetThisBranchVersion(int taskid)
+        {
+            string query = @$"
+                    select  top(1) dbo.version.id as versionId from dbo.Branch
+                    inner join dbo.version on dbo.Branch.id = dbo.Version.foreign_branch
+                    where dbo.Branch.foreign_task = {taskid}
+                    order by dbo.Version.id desc";
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); ;
+
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+
+            return new JsonResult(table);
         }
     }
 }

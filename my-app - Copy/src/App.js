@@ -12,6 +12,8 @@ import { AssignManually } from './AssignManually';
 import MyProjects from './MyProjects';
 import {ControlComment} from './ControlComment';
 import {Navigation} from './Navigation';
+import {ControlFinishedTasks} from './ControlFinishedTasks';
+import {CloseTask} from './CloseTask';
 
 import React, { useState } from "react";
 
@@ -40,7 +42,8 @@ function App() {
        <Route path='/comments' component={ControlComment}/>
        <Route path='/branch/:id' component={Branch}/>
        <Route path='/sprint/:id' component={Sprint}/>
-
+       <Route path='/controlFinishedTasks' component={ControlFinishedTasks}/>
+       <Route path='/closeTask' component={CloseTask}/>
      </Switch>
     </div>
     </BrowserRouter>

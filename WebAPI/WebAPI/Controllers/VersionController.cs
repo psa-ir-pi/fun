@@ -44,10 +44,12 @@ namespace WebAPI.Controllers
             return new JsonResult(table);
         }
 
-        [Route("notMain/{id}")]
-        public JsonResult GetNotMain(int id)
+        [HttpGet("try/{id}")]
+        public JsonResult Get2(int id)
         {
-            string query = @$"select Version.*  from Version JOIN dbo.Branch On Version.foreign_branch = Branch.id where Branch.foreign_project = {id} and Branch.name != 'main'";
+            string query = @$"
+                    select * from dbo.Version
+                    where foreign_branch ={id}";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
             SqlDataReader myReader;
@@ -63,7 +65,6 @@ namespace WebAPI.Controllers
                     myCon.Close();
                 }
             }
-
             return new JsonResult(table);
         }
 
@@ -93,7 +94,5 @@ namespace WebAPI.Controllers
 
             return new JsonResult(table);
         }
-
-       
     }
 }

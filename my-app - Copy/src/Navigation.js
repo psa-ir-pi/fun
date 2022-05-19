@@ -10,21 +10,25 @@ export class Navigation extends Component{
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav>
-                <NavLink className="d-inline p-2 bg-dark text-white" to="/">
-                    Home
-                </NavLink>
-                <NavLink className="d-inline p-2 bg-dark text-white" to="/allProjects">
-                    All projects
-                </NavLink>tart                
-                <NavLink className="d-inline p-2 bg-dark text-white" to="/myProjects">
-                    My projects
-                </NavLink>
-                <NavLink className="d-inline p-2 bg-dark text-white" to="/comments">
-                    Comments
-                </NavLink>
-                <NavLink className="d-inline p-2 bg-dark text-white" to="/ControlSprint/1">
-                    User's managed sprints
-                </NavLink>
+					<NavLink className="d-inline p-2 bg-dark text-white" to="/">
+						Home
+					</NavLink>
+					<NavLink className="d-inline p-2 bg-dark text-white" to="/allProjects">
+						All projects
+					</NavLink>tart                
+					<NavLink className="d-inline p-2 bg-dark text-white" to="/myProjects">
+						My projects
+					</NavLink>
+					<NavLink className="d-inline p-2 bg-dark text-white" to="/comments">
+						Comments
+					</NavLink>
+					<NavLink className="d-inline p-2 bg-dark text-white" to="/ControlSprint/1">
+						User's managed sprints
+					</NavLink>
+
+					<NavLink className="d-inline p-2 bg-dark text-white" to="/controlFinishedTasks">
+						Control finished tasks
+					</NavLink>
                 </Nav>
                 </Navbar.Collapse>
             </Navbar>
