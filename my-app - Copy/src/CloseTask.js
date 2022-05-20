@@ -3,11 +3,13 @@ import {Modal,Table,ButtonToolbar, Button, Row, Col, Form} from 'react-bootstrap
 import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 
 import {Merge} from './Merge';
+import {CreateComment} from './CreateComment';
 
 export class CloseTask extends Component{
+
     constructor(props){
         super(props);
-        this.state={mergeShow:false, codeLines:"", newCode:""}
+        this.state={mergeShow:false, codeLines:"", newCode:"", createShow:false}
     }
 
 
@@ -16,6 +18,8 @@ export class CloseTask extends Component{
 
     render(){
         let mergeShow=()=>this.setState({mergeShow:false});
+        let createClose=()=>{this.setState({createShow:false})};
+
         return (
 
             <div className="container">
@@ -63,6 +67,14 @@ export class CloseTask extends Component{
                                 code2={this.props.code2}
                                 projectID={this.props.projectID}
                             /> }
+                            <Button variant='primary'
+                                onClick={()=>this.setState({createShow:true})}>
+                                Add Comment
+                            </Button>
+                            <CreateComment show={this.state.createShow}
+                    onHide={createClose}
+                    versionID={7}
+                    />
                         </ButtonToolbar>
 
                     </Modal.Body>
@@ -72,10 +84,8 @@ export class CloseTask extends Component{
                     </Modal.Footer>
 
                 </Modal>
-
                 
             </div>
         )
     }
-
 }

@@ -24,7 +24,7 @@ class Branch extends Component{
         var bAllId = []
         var layers=[]
         var colors=["#1F45FC", "#00FFFF", "#008080", "#347235","#4CC417","#EDDA74","##FFFF00","#FFA62F","#966F33"]
-        fetch(process.env.REACT_APP_API+'version/getAll/'+id)
+        fetch(process.env.REACT_APP_API+'branch/getAll/'+id)
         .then(response=>response.json())
         .then(data=>{
             var index = 0

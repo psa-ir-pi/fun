@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
             _configuration = configuration;
         }
         [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        public JsonResult UpdateTaskState(int id)
         {
             string query = @$"
                     select * from dbo.Sprint where foreign_project = {id}";

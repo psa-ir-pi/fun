@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
 
        
         [HttpGet("{taskid}")]
-        public JsonResult get(int taskid)
+        public JsonResult select(int taskid)
         {
             string query = @"
                 select Team_member.*,[User].max_points,[User].name from Team_member
@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public JsonResult Put(Task task)
+        public JsonResult assign(Task task)
         {
             string query = @"
                 update Task set 

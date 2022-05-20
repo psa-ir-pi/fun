@@ -1,31 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System.Data;
 using System.Data.SqlClient;
+using System.Data;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class CreateSprintController : ControllerBase
+    public class ControlCommentController : ControllerBase
     {
         private readonly IConfiguration _configuration;
 
-        public CreateSprintController(IConfiguration configuration)
+        public ControlCommentController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        [HttpGet("{id}")]
-        public JsonResult select(int id)
+        [HttpGet]
+        public JsonResult select()
         {
             string query = @"
-                select pj.id, pj.name from Project pj
-                inner join Team_member on Team_member.foreign_project = pj.id
-                inner join Team_leader on Team_leader.foreign_team_member = Team_member.id
-                inner join [User] on [User].id = Team_member.foreign_user
-                where [User].id = " + id + ";";
+                select dbo.Comment.id, text, from_line, to_line, Comment.date, foreign_version, [User].name, Project.name as Project_name FROM Comment INNER JOIN [User] ON dbo.[User].id=dbo.Comment.foreign_user
+                INNER JOIN Version ON Version.id=Comment.foreign_version
+                INNER JOIN Branch ON Version.foreign_branch=Branch.id
+                LEFT JOIN Task ON Branch.foreign_task=Task.id
+                LEFT JOIN Sprint ON Task.foreign_sprint=Sprint.id
+                LEFT JOIN Project ON Project.id=Branch.foreign_project or Sprint.foreign_project=Project.Id";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
             SqlDataReader myReader;
@@ -45,32 +52,25 @@ namespace WebAPI.Controllers
             return new JsonResult(table);
         }
 
-
-        [HttpPost]
-        public JsonResult insert(Sprint sprint)
+        [HttpDelete("{id}")]
+        public JsonResult delete(int id)
         {
             string query = @"
-               insert into Sprint (name,date,foreign_project)
-                values ('"+sprint.name+"',CURRENT_TIMESTAMP,"+sprint.foreign_project+");";
-            DataTable table = new DataTable();
+                   delete from dbo.Comment
+                   where id = " + id + @" 
+                   ";
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
-            SqlDataReader myReader;
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader); ;
-
-                    myReader.Close();
+                    myCommand.ExecuteNonQuery();
                     myCon.Close();
                 }
             }
 
-            return new JsonResult("Added Successfully");
+            return new JsonResult("Deleted Successfully");
         }
-
-
     }
 }

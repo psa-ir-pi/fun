@@ -103,7 +103,7 @@ namespace WebAPI.Controllers
 
         [Route("AddMemberToTask")]
         [HttpPut]
-        public JsonResult AddMemberToTask(Task task)
+        public JsonResult assign(Task task)
         {
             string query = @"
                 update Task set 

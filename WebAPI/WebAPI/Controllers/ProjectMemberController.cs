@@ -45,7 +45,7 @@ namespace WebAPI.Controllers
         }
         [Route("GetNonParticipants/{id}")]
         [HttpGet]
-        public JsonResult GetNonParticipants(int id)
+        public JsonResult select(int id)
         {
             string query = @"
                select [User].id,[User].name from [User]
@@ -73,7 +73,7 @@ namespace WebAPI.Controllers
 
 
         [HttpPost]
-        public JsonResult Insert(TeamMember teamMember)
+        public JsonResult insert(TeamMember teamMember)
         {
             string query = @"
                 insert into dbo.Team_member
@@ -99,7 +99,7 @@ namespace WebAPI.Controllers
             }
 
         [HttpDelete("{id}")]
-        public JsonResult Delete(int id)
+        public JsonResult delete(int id)
         {
            string query = @"
                    delete from dbo.Team_member

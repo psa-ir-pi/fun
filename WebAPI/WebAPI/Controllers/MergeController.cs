@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
        
 
         [HttpPost("project")]
-        public JsonResult Insert(Task task)
+        public JsonResult insert(Task task)
         {
             string query0 = @"
                     select * from dbo.Branch where foreign_project='" + task.id + "'";
@@ -107,7 +107,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("task")]
-        public JsonResult Insert2(Task task)
+        public JsonResult insert2(Task task)
         {
             string query0 = @"
                     select * from dbo.Branch where foreign_task='" + task.id + "'";

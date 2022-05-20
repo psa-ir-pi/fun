@@ -33,7 +33,7 @@ export class ProjectMember extends Component{
         });
         var flag = false;
         tasks.map(task=>{
-            if (task.state != 3)flag=true;
+            if (task.state != 4)flag=true;
         });
         return flag;
     }
@@ -47,7 +47,7 @@ export class ProjectMember extends Component{
     }
 
     // first calls a func testIfAllTasksFinished and then ask for confirmation to delete project by id
-    deleteMember(memberId){
+    deleteMemberFromTeam(memberId){
         const flag = this.checkTasks(memberId);
         if(flag){
             if(window.confirm('There are unfinished tasks. \nAre you sure you want to delete the project?')){
@@ -131,7 +131,7 @@ export class ProjectMember extends Component{
                                 <td >
                                         <ButtonToolbar>
                                                 <Button className="mr-2" variant="danger"
-                                                onClick={()=>this.deleteMember(mem.id)}>
+                                                onClick={()=>this.deleteMemberFromTeam(mem.id)}>
                                                     Delete
                                                 </Button>
                                         </ButtonToolbar>

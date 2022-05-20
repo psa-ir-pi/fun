@@ -12,7 +12,7 @@ export class ControlComment extends Component{
     }
 
     getAllComments(){
-        fetch(process.env.REACT_APP_API+'comment')
+        fetch(process.env.REACT_APP_API+'controlComment')
         .then(response=>response.json())
         .then(data=>{
             for (let comment of data) {
@@ -38,7 +38,7 @@ export class ControlComment extends Component{
 
     deleteComment(commentId){
         if(window.confirm('Are you sure?')){
-            fetch(process.env.REACT_APP_API+'comment/'+commentId,{
+            fetch(process.env.REACT_APP_API+'controlComment/'+commentId,{
                 method:'DELETE',
                 header:{'Accept':'application/json',
                 'Content-Type':'application/json'}
@@ -90,15 +90,6 @@ export class ControlComment extends Component{
                     </tbody>
 
                 </Table>
-
-                <ButtonToolbar>
-                    <Button variant='primary'
-                    onClick={()=>this.setState({createShow:true})}>
-                    Add Comment</Button>
-
-                    <CreateComment show={this.state.createShow}
-                    onHide={createClose}/>
-                </ButtonToolbar>
             </div>
         )
     }

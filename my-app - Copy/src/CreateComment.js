@@ -4,11 +4,13 @@ import {Modal,Button, Row, Col, Form} from 'react-bootstrap';
 export class CreateComment extends Component{
     constructor(props){
         super(props);
-        this.handleSubmit=this.CreateComment.bind(this);
+        this.handleSubmit=this.createComment.bind(this);
+        this.state={versionid:this.props.versionID};
+
     }
 
 
-    CreateComment(event){
+    createComment(event){
         event.preventDefault();
         console.log(event.target.from_line.value)
         if(event.target.from_line.value == ""){
@@ -17,7 +19,7 @@ export class CreateComment extends Component{
         if(event.target.to_line.value == ""){
             event.target.to_line.value = -1
         }
-        fetch(process.env.REACT_APP_API+'comment',{
+        fetch(process.env.REACT_APP_API+'createComment',{
             method:'POST',
             headers:{
                 'Accept':'application/json',
@@ -42,6 +44,7 @@ export class CreateComment extends Component{
     }
 
     render(){     
+        const {versionid}=this.state;
         return (
             <div className="container">
             <Modal
@@ -52,14 +55,14 @@ export class CreateComment extends Component{
             >
                 <Modal.Header clooseButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Add Project
+                        Add Comment
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
 
                     <Row>
                         <Col sm={6}>
-                            <Form onSubmit={this.CreateComment}>
+                            <Form onSubmit={this.createComment}>
                                 <Form.Group controlId="text">
                                     <Form.Label>Text</Form.Label>
                                     <Form.Control type="text" name="text" required 
@@ -77,7 +80,7 @@ export class CreateComment extends Component{
                                 </Form.Group>
 
                                 <Form.Group controlId="foreign_version">
-                                    <Form.Control type="hidden" name="foreign_version" value={2}/>
+                                    <Form.Control type="hidden" name="foreign_version" value={versionid}/>
                                 </Form.Group>   
                                 <Form.Group controlId="foreign_user">
                                     <Form.Control type="hidden" name="foreign_user" value={1}/>
@@ -86,7 +89,7 @@ export class CreateComment extends Component{
 
                                 <Form.Group>
                                     <Button variant="primary" type="submit">
-                                        Add Project
+                                        Add Comment
                                     </Button>
                                 </Form.Group>
                             </Form>

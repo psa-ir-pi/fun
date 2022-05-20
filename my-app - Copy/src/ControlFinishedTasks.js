@@ -13,6 +13,7 @@ export class ControlFinishedTasks extends Component{
     }
 
     selectFinished(){
+        console.log(process.env.REACT_APP_API+'controlfinishedtasks')
         fetch(process.env.REACT_APP_API+'controlfinishedtasks')
         .then(response=>response.json())
         .then(data=>{

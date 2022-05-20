@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
             _configuration = configuration;
         }
         [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        public JsonResult select(int id)
         {
             string query = @"
                 select dbo.Code_line.* from dbo.Code_line

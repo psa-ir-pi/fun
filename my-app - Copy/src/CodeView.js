@@ -3,12 +3,13 @@ import {Table} from 'react-bootstrap';
 import {Button,ButtonToolbar,} from 'react-bootstrap';
 
 import {CodeComparison} from './CodeComparison';
+import {CreateComment} from './CreateComment';
 
 export class CodeView extends Component{
 
     constructor(props){
         super(props);
-        this.state={lines:[],code1:"",code2:"", versionid:this.props.match.params.id,  comparisonShow:false, versionIDs:[]};
+        this.state={lines:[],code1:"",code2:"", versionid:this.props.match.params.id,  comparisonShow:false, versionIDs:[], createShow:false};
     }
 
     selectCodeLines(){
@@ -62,6 +63,8 @@ export class CodeView extends Component{
     render(){
         const {lines,versionid, versionIDs, code1, code2}=this.state;
         let comparisonShow=()=>this.setState({comparisonShow:false});
+        let createClose=()=>{this.setState({createShow:false})};
+
         return(
             <div className="col-lg-12  text-center">
                 <h1>Version {versionid}</h1>
@@ -81,9 +84,14 @@ export class CodeView extends Component{
                     </tbody>
                 </Table>
                 <ButtonToolbar>
-                    <Button className="mr-2" variant="danger">
-                            Create comment
-                    </Button>
+                <Button variant='primary'
+                                onClick={()=>this.setState({createShow:true})}>
+                                Add Comment
+                            </Button>
+                            <CreateComment show={this.state.createShow}
+                    onHide={createClose}
+                    versionID={versionid}
+                    />
                     <Button className="mr-2" variant="danger">
                             Delete
                     </Button>

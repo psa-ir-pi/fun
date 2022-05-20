@@ -90,7 +90,7 @@ export class AssignManually extends Component{
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
+                    { this.state.available.length > 0 ?
                     <Row>
                         <Col sm={6}>
                             <Form onSubmit={this.assign}>
@@ -110,8 +110,9 @@ export class AssignManually extends Component{
                             </Form>
                         </Col>
                     </Row>
+                    : 'There are no specialized members for the task'
+                    } 
                 </Modal.Body>
-                
                 <Modal.Footer>
                     <Button variant="danger" onClick={this.props.onHide}>Close</Button>
                 </Modal.Footer>

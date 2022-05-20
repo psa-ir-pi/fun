@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
         public JsonResult selectFinished()
         {
             string query = @"
-                    select  *, dbo.Task_type.type as taskType, dbo.Sprint.name as sprintName from dbo.Task 
+                    select  dbo.Task.*, dbo.Task_type.type as taskType, dbo.Sprint.name as sprintName from dbo.Task 
                     inner join dbo.Task_type on dbo.Task.type = dbo.Task_type.id 
                     inner join dbo.Sprint on dbo.Task.foreign_sprint = dbo.Sprint.id 
                     where dbo.Task.state = 3";

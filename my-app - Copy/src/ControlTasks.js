@@ -90,6 +90,7 @@ export class ControlTasks extends Component{
             }
         }
     }
+    
 
     async findMemberMaxPoints(member){
         return member.max_points;

@@ -665,23 +665,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\rokbar6\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\mante\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rokbar6\\Desktop\\group\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\rokbar6\\Desktop\\group\\WebAPI\\WebAPI\\WebAPI.csproj",
-      "packagesPath": "C:\\Users\\rokbar6\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rokbar6\\Desktop\\group\\WebAPI\\WebAPI\\obj\\",
+      "projectPath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\WebAPI.csproj",
+      "packagesPath": "C:\\Users\\mante\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mante\\OneDrive\\Stalinis kompiuteris\\GIT\\fun\\WebAPI\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\rokbar6\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mante\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -734,7 +730,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
